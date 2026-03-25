@@ -3,10 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({
-  origin: ['https://helpdesk.cmdtechrd.com', 'http://localhost:3000', 'http://localhost:4008'],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // Rutas

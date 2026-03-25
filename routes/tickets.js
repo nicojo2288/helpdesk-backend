@@ -19,7 +19,9 @@ router.get('/', authMiddleware, async (req, res) => {
     .from('tickets')
     .select('*, users(fname,lname,email,phone), companies(name,rnc)')
     .order('created_at', { ascending: false });
-  if (req.user.role !== 'admin') {
+ if (req.user.role === 'technician') {
+    query = query.eq('assignee_id', req.user.id);
+} else if (req.user.role === 'client') {
     query = query.eq('user_id', req.user.id);
   }
   const { data, error } = await query;

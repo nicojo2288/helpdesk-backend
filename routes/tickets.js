@@ -109,4 +109,12 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   res.json({ success: true });
 });
 
+// GET público para encuesta (sin auth)
+router.get('/public/:id', async (req, res) => {
+  const { data, error } = await supabase
+    .from('tickets').select('*').eq('id', req.params.id).single();
+  if (error || !data) return res.status(404).json({ error: 'No encontrado' });
+  res.json(data);
+});
+
 module.exports = router;
